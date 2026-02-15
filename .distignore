@@ -13,7 +13,6 @@ phpstan.neon
 tailwind.config.js
 scoper.inc.php
 test-isolation.php
-DEPENDENCY-ISOLATION.md
 
 /.git
 /.github
