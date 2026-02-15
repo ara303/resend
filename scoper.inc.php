@@ -10,8 +10,7 @@ declare(strict_types=1);
 use Isolated\Symfony\Component\Finder\Finder;
 
 return [
-	'prefix'                     => 'CloudCatchResendVendor',
-	'output-dir'                 => 'vendor-prefixed',
+	'prefix'                     => 'ResendWP',
 	'finders'                    => [
 		Finder::create()
 			->files()
@@ -55,13 +54,4 @@ return [
 	'exclude-classes'            => [
 		'Composer\InstalledVersions',
 	],
-	'exclude-functions'          => [],
-	'exclude-constants'          => [],
-	'expose-global-constants'    => true,
-	'expose-global-classes'      => false,
-	'expose-global-functions'    => false,
-	'expose-namespaces'          => [],
-	'expose-classes'             => [],
-	'expose-functions'           => [],
-	'expose-constants'           => [],
 ];

@@ -12,7 +12,6 @@ phpcs.xml
 phpstan.neon
 tailwind.config.js
 scoper.inc.php
-test-isolation.php
 
 /.git
 /.github

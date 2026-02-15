@@ -7,10 +7,10 @@
 
 namespace CloudCatch\Resend;
 
-use CloudCatchResendVendor\Monolog\Logger;
-use CloudCatchResendVendor\Monolog\Handler\StreamHandler;
-use CloudCatchResendVendor\Resend;
-use CloudCatchResendVendor\Resend\Client;
+use ResendWP\Monolog\Logger;
+use ResendWP\Monolog\Handler\StreamHandler;
+use ResendWP\Resend;
+use ResendWP\Resend\Client;
 
 /**
  * Resend PHPMailer class.

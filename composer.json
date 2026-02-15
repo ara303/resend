@@ -28,7 +28,14 @@
             "@phpcs",
             "@phpstan"
         ],
+        "test-isolation": "php bin/test-isolation.php",
         "zip": "bash bin/build-zip.sh",
-        "prefix-dependencies": "bash bin/prefix-dependencies.sh"
+        "prefix-dependencies": "bash bin/prefix-dependencies.sh",
+        "post-install-cmd": [
+            "@prefix-dependencies"
+        ],
+        "post-update-cmd": [
+            "@prefix-dependencies"
+        ]
     }
 }
