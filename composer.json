@@ -17,7 +17,8 @@
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7.2",
         "phpcompatibility/phpcompatibility-wp": ">=2.1.8",
         "szepeviktor/phpstan-wordpress": "^2.0",
-        "php-stubs/wp-cli-stubs": "^2.10"
+        "php-stubs/wp-cli-stubs": "^2.10",
+        "humbug/php-scoper": "^0.18"
     },
     "scripts": {
         "phpcs": "./vendor/bin/phpcs",
@@ -27,6 +28,7 @@
             "@phpcs",
             "@phpstan"
         ],
-        "zip": "bash bin/build-zip.sh"
+        "zip": "bash bin/build-zip.sh",
+        "prefix-dependencies": "bash bin/prefix-dependencies.sh"
     }
 }

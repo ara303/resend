@@ -11,6 +11,9 @@ package.json
 phpcs.xml
 phpstan.neon
 tailwind.config.js
+scoper.inc.php
+test-isolation.php
+DEPENDENCY-ISOLATION.md
 
 /.git
 /.github
@@ -21,3 +24,4 @@ tailwind.config.js
 /logs
 /node_modules
 /src
+/vendor

@@ -12,6 +12,9 @@ mkdir -p "$DEST_PATH"
 echo "Building email templates..."
 npm run email:build
 
+echo "Prefixing dependencies..."
+bash bin/prefix-dependencies.sh
+
 echo "Syncing files..."
 rsync -rc --exclude-from="$PROJECT_PATH/.distignore" "$PROJECT_PATH/" "$DEST_PATH/" --delete --delete-excluded
 

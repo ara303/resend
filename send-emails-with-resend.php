@@ -21,7 +21,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Load Composer dependencies.
-require_once __DIR__ . '/vendor/autoload.php';
+if ( file_exists( __DIR__ . '/vendor-prefixed/autoload.php' ) ) {
+	require_once __DIR__ . '/vendor-prefixed/autoload.php';
+} else {
+	require_once __DIR__ . '/vendor/autoload.php';
+}
 
 // Load CLI.
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
