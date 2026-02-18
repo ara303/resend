@@ -9,8 +9,7 @@
             "php": "8.1"
         },
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true,
-            "bamarni/composer-bin-plugin": true
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "require-dev": {
@@ -19,23 +18,27 @@
         "phpcompatibility/phpcompatibility-wp": ">=2.1.8",
         "szepeviktor/phpstan-wordpress": "^2.0",
         "php-stubs/wp-cli-stubs": "^2.10",
-        "bamarni/composer-bin-plugin": "*"
+        "humbug/php-scoper": "^0.18"
     },
     "scripts": {
         "phpcs": "phpcs",
         "phpcbf": "phpcbf",
         "phpstan": "phpstan analyze",
-        "php-scoper": "bash -c 'composer install --no-dev --no-scripts -q && vendor-bin/php-scoper/vendor/humbug/php-scoper/bin/php-scoper add-prefix --force && composer install --no-scripts -q'",
+        "scoper": [
+            "COMPOSER_VENDOR_DIR=vendor-scoper composer install --no-dev --no-scripts --no-interaction --prefer-dist",
+            "SCOPER_VENDOR_DIR=vendor-scoper php -d memory_limit=-1 vendor/bin/php-scoper add-prefix --config=scoper.inc.php --force",
+            "rm -rf vendor-scoper"
+        ],
         "test": [
             "@phpcs",
             "@phpstan"
         ],
         "zip": "bash bin/build-zip.sh",
         "post-install-cmd": [
-            "@php-scoper"
+            "@scoper"
         ],
         "post-update-cmd": [
-            "@php-scoper"
+            "@scoper"
         ]
     }
 }

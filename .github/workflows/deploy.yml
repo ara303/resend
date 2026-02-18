@@ -22,8 +22,8 @@ jobs:
         with:
           php-version: '8.1'
 
-      - name: Install composer dependencies (no dev)
-        run: composer install --no-dev
+      - name: Install composer dependencies
+        run: composer install --no-interaction --prefer-dist
 
       - name: Install npm packages
         run: npm i
