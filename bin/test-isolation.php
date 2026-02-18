@@ -8,8 +8,6 @@
 
 require __DIR__ . '/../vendor-prefixed/autoload.php';
 
-echo "=== Dependency Isolation Test ===" . PHP_EOL . PHP_EOL;
-
 // Test 1: Prefixed classes exist.
 echo '1. Prefixed Monolog\\Logger: ' . ( class_exists( 'ResendWP\Monolog\Logger' ) ? '✓ EXISTS' : '✗ MISSING' ) . PHP_EOL;
 echo '2. Prefixed Psr\\Log\\LoggerInterface: ' . ( interface_exists( 'ResendWP\Psr\Log\LoggerInterface' ) ? '✓ EXISTS' : '✗ MISSING' ) . PHP_EOL;
@@ -29,5 +27,5 @@ try {
 	exit( 1 );
 }
 
-echo PHP_EOL . '=== All tests passed! Dependencies are properly isolated. ===' . PHP_EOL;
+echo "PASS: Dependency isolation\n";
 exit( 0 );
