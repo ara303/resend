@@ -1,5 +1,6 @@
 /dist
 /vendor
 /vendor-prefixed
+/vendor-bin
 /node_modules
 /public

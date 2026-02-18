@@ -9,7 +9,8 @@
             "php": "8.1"
         },
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "bamarni/composer-bin-plugin": true
         }
     },
     "require-dev": {
@@ -18,24 +19,23 @@
         "phpcompatibility/phpcompatibility-wp": ">=2.1.8",
         "szepeviktor/phpstan-wordpress": "^2.0",
         "php-stubs/wp-cli-stubs": "^2.10",
-        "humbug/php-scoper": "^0.18"
+        "bamarni/composer-bin-plugin": "*"
     },
     "scripts": {
-        "phpcs": "./vendor/bin/phpcs",
-        "phpcbf": "./vendor/bin/phpcbf",
-        "phpstan": "./vendor/bin/phpstan analyze",
+        "phpcs": "phpcs",
+        "phpcbf": "phpcbf",
+        "phpstan": "phpstan analyze",
+        "php-scoper": "bash -c 'composer install --no-dev --no-scripts -q && vendor-bin/php-scoper/vendor/humbug/php-scoper/bin/php-scoper add-prefix --force && composer install --no-scripts -q'",
         "test": [
             "@phpcs",
             "@phpstan"
         ],
-        "test-isolation": "php bin/test-isolation.php",
         "zip": "bash bin/build-zip.sh",
-        "prefix-dependencies": "bash bin/prefix-dependencies.sh",
         "post-install-cmd": [
-            "@prefix-dependencies"
+            "@php-scoper"
         ],
         "post-update-cmd": [
-            "@prefix-dependencies"
+            "@php-scoper"
         ]
     }
 }

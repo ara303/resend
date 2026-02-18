@@ -13,7 +13,7 @@ echo "Building email templates..."
 npm run email:build
 
 echo "Prefixing dependencies..."
-bash bin/prefix-dependencies.sh
+bash -c "composer install --no-dev --no-scripts -q && vendor-bin/php-scoper/vendor/humbug/php-scoper/bin/php-scoper add-prefix --force && composer install --no-scripts -q"
 
 echo "Syncing files..."
 rsync -rc --exclude-from="$PROJECT_PATH/.distignore" "$PROJECT_PATH/" "$DEST_PATH/" --delete --delete-excluded

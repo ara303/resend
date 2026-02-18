@@ -188,6 +188,23 @@ class Resend_PHPMailer extends \PHPMailer\PHPMailer\PHPMailer {
 	 * @return bool
 	 */
 	protected function resendSend( string $header, string $body ): bool {
+		if ( defined( 'RESEND_WP_DEBUG' ) && RESEND_WP_DEBUG ) {
+			// Log the email details instead of sending.
+			$log_message = sprintf(
+				"[RESEND_WP_DEBUG]\nFrom: %s\nTo: %s\nSubject: %s\nBody: %s\nBCC: %s\nCC: %s\nReply-To: %s\nAttachments: %s",
+				$this->formatFrom(),
+				implode( ', ', $this->formatRecipients() ),
+				$this->Subject,
+				$this->Body,
+				implode( ', ', $this->formatRecipients( 'bcc' ) ),
+				implode( ', ', $this->formatRecipients( 'cc' ) ),
+				implode( ', ', $this->formatRecipients( 'ReplyTo' ) ),
+				json_encode( $this->formatAttachments() ) // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
+			);
+			$this->logger->info( $log_message );
+			return true;
+		}
+
 		try {
 			$email = $this->resend()->emails->send(
 				array(
