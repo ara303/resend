@@ -15,17 +15,17 @@ if ( ! is_string( $vendor_dir ) || '' === trim( $vendor_dir ) ) {
 	$vendor_dir = 'vendor';
 }
 
-return [
-	'prefix'                     => 'ResendWP',
-	'output-dir'                 => 'vendor-prefixed',
-	'finders'                    => [
+return array(
+	'prefix'             => 'ResendWP',
+	'output-dir'         => 'vendor-prefixed',
+	'finders'            => array(
 		Finder::create()
 			->files()
 			->in( __DIR__ . '/' . $vendor_dir )
 			->ignoreVCS( true )
 			->notName( '/LICENSE|.*\\.md|.*\\.dist|Makefile|composer\\.(json|lock)/' )
 			->exclude(
-				[
+				array(
 					'doc',
 					'test',
 					'test_old',
@@ -33,10 +33,10 @@ return [
 					'Tests',
 					'vendor-bin',
 					'.github',
-				]
+				)
 			),
-	],
-	'patchers'                   => [
+	),
+	'patchers'           => array(
 		static function ( string $file_path, string $prefix, string $contents ): string {
 			if ( false === strpos( $file_path, 'composer/autoload_real.php' ) ) {
 				return $contents;
@@ -57,7 +57,7 @@ return [
 						. "                continue;\n"
 						. "            }\n"
 						. "            \$loader->setPsr4(\"ResendWP\\\\\" . \$namespace, \$paths);\n"
-						. "        }";
+						. '        }';
 				},
 				$contents,
 				1
@@ -65,12 +65,12 @@ return [
 
 			return $contents;
 		},
-	],
-	'exclude-namespaces'         => [
+	),
+	'exclude-namespaces' => array(
 		'CloudCatch',
 		'CloudCatch\\Resend',
-	],
-	'exclude-classes'            => [
+	),
+	'exclude-classes'    => array(
 		'Composer\InstalledVersions',
-	],
-];
+	),
+);

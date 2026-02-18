@@ -6,8 +6,7 @@ parameters:
     paths:
         - send-emails-with-resend.php
         - classes
+    scanDirectories:
+        - vendor-prefixed # expose prefixed namespaces to fix class.notFound errors
     bootstrapFiles:
         - vendor/php-stubs/wp-cli-stubs/wp-cli-stubs.php
-    excludePaths:
-        - scoper.inc.php
-        - bin/*

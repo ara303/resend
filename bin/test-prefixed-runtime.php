@@ -1,49 +1,52 @@
-#!/usr/bin/env php
 <?php
 /**
- * Runtime smoke test for prefixed dependencies.
+ * Test the backslash escaping of prefixes is right.
  *
  * @package CloudCatch\Resend
+ *
+ * phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
+ * phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped
+ * phpcs:disable WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
  */
 
 declare(strict_types=1);
 
-$root = dirname(__DIR__);
+$root = dirname( __DIR__ );
 
 $autoload = $root . '/vendor-prefixed/autoload.php';
-if (! is_readable($autoload)) {
-	throw new RuntimeException('Missing prefixed autoloader: ' . $autoload);
+if ( ! is_readable( $autoload ) ) {
+	throw new RuntimeException( 'Missing prefixed autoloader: ' . $autoload );
 }
 
 require $autoload;
 
-$checks = [
-	['ResendWP\\Monolog\\Logger', 'class'],
-	['ResendWP\\Monolog\\Handler\\StreamHandler', 'class'],
-	['ResendWP\\Psr\\Log\\LoggerInterface', 'interface'],
-	['ResendWP\\Resend\\Client', 'class'],
-];
+$checks = array(
+	array( 'ResendWP\\Monolog\\Logger', 'class' ),
+	array( 'ResendWP\\Monolog\\Handler\\StreamHandler', 'class' ),
+	array( 'ResendWP\\Psr\\Log\\LoggerInterface', 'interface' ),
+	array( 'ResendWP\\Resend\\Client', 'class' ),
+);
 
-foreach ($checks as [$symbol, $type]) {
-	$exists = $type === 'interface' ? interface_exists($symbol) : class_exists($symbol);
+foreach ( $checks as [$symbol, $symbol_type] ) {
+	$exists = 'interface' === $symbol_type ? interface_exists( $symbol ) : class_exists( $symbol );
 
-	if (! $exists) {
-		$staticMapFile = $root . '/vendor-prefixed/composer/autoload_static.php';
-		$staticMap = is_readable($staticMapFile) ? file_get_contents($staticMapFile) : false;
-		$hasExpectedPrefix = is_string($staticMap)
-			? str_contains($staticMap, "'ResendWP\\\\Monolog\\\\'")
+	if ( ! $exists ) {
+		$static_map_file       = $root . '/vendor-prefixed/composer/autoload_static.php';
+		$static_map            = is_readable( $static_map_file ) ? file_get_contents( $static_map_file ) : false;
+		$has_expected_prefix   = is_string( $static_map )
+			? str_contains( $static_map, "'ResendWP\\\\Monolog\\\\'" )
 			: false;
-		$hasUnprefixedPrefix = is_string($staticMap)
-			? str_contains($staticMap, "'Monolog\\\\'")
+		$has_unexpected_prefix = is_string( $static_map )
+			? str_contains( $static_map, "'Monolog\\\\'" )
 			: false;
 
 		throw new RuntimeException(
 			sprintf(
-				"Missing %s %s. autoload_static.php has ResendWP Monolog prefix: %s; has unprefixed Monolog prefix: %s",
-				$type,
+				'Missing %s %s. autoload_static.php has ResendWP Monolog prefix: %s; has unprefixed Monolog prefix: %s',
+				$symbol_type,
 				$symbol,
-				$hasExpectedPrefix ? 'yes' : 'no',
-				$hasUnprefixedPrefix ? 'yes' : 'no'
+				$has_expected_prefix ? 'yes' : 'no',
+				$has_unexpected_prefix ? 'yes' : 'no'
 			)
 		);
 	}

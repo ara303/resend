@@ -26,7 +26,7 @@
         "phpstan": "phpstan analyze",
         "scoper": [
             "COMPOSER_VENDOR_DIR=vendor-scoper composer install --no-dev --no-scripts --no-interaction --prefer-dist",
-            "SCOPER_VENDOR_DIR=vendor-scoper php -d memory_limit=-1 vendor/bin/php-scoper add-prefix --config=scoper.inc.php --force",
+            "SCOPER_VENDOR_DIR=vendor-scoper php -d memory_limit=-1 vendor/bin/php-scoper add-prefix --force",
             "rm -rf vendor-scoper"
         ],
         "test": [

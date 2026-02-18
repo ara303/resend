@@ -1,10 +1,13 @@
-#!/usr/bin/env php
 <?php
 /**
- * Test script for dependency isolation
+ * Test if dependencies are accessible under their namespaced names.
  *
  * @package CloudCatch\Resend
+ *
+ * phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
  */
+
+declare(strict_types=1);
 
 require __DIR__ . '/../vendor-prefixed/autoload.php';
 
