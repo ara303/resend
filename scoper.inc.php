@@ -53,12 +53,5 @@ return array(
 
 			return $contents;
 		},
-	),
-	// 'exclude-namespaces' => array(
-	// 	'CloudCatch',
-	// 	'CloudCatch\\Resend',
-	// ),
-	// 'exclude-classes'    => array(
-	// 	'Composer\InstalledVersions',
-	// ),
+	)
 );
