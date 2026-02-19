@@ -13,7 +13,7 @@ echo "Building email templates..."
 npm run email:build
 
 echo "Prefixing dependencies..."
-composer run scoper --no-interaction
+composer run scoper
 
 echo "Syncing files..."
 rsync -rc --exclude-from="$PROJECT_PATH/.distignore" "$PROJECT_PATH/" "$DEST_PATH/" --delete --delete-excluded

@@ -9,30 +9,18 @@ declare(strict_types=1);
 
 use Isolated\Symfony\Component\Finder\Finder;
 
-$vendor_dir = getenv( 'SCOPER_VENDOR_DIR' );
-
-if ( ! is_string( $vendor_dir ) || '' === trim( $vendor_dir ) ) {
-	$vendor_dir = 'vendor';
-}
-
 return array(
 	'prefix'             => 'ResendWP',
 	'output-dir'         => 'vendor-prefixed',
 	'finders'            => array(
 		Finder::create()
 			->files()
-			->in( __DIR__ . '/' . $vendor_dir )
+			->in( __DIR__ . '/vendor-scoper' )
 			->ignoreVCS( true )
 			->notName( '/LICENSE|.*\\.md|.*\\.dist|Makefile|composer\\.(json|lock)/' )
 			->exclude(
 				array(
-					'doc',
-					'test',
-					'test_old',
-					'tests',
-					'Tests',
-					'vendor-bin',
-					'.github',
+					'.github'
 				)
 			),
 	),
@@ -66,11 +54,11 @@ return array(
 			return $contents;
 		},
 	),
-	'exclude-namespaces' => array(
-		'CloudCatch',
-		'CloudCatch\\Resend',
-	),
-	'exclude-classes'    => array(
-		'Composer\InstalledVersions',
-	),
+	// 'exclude-namespaces' => array(
+	// 	'CloudCatch',
+	// 	'CloudCatch\\Resend',
+	// ),
+	// 'exclude-classes'    => array(
+	// 	'Composer\InstalledVersions',
+	// ),
 );
