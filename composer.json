@@ -23,25 +23,23 @@
         "phpcs": "./vendor/bin/phpcs",
         "phpcbf": "./vendor/bin/phpcbf",
         "phpstan": "./vendor/bin/phpstan analyze",
+        "install-strauss": "sh -c 'test -f ./bin/strauss.phar || curl -fsSL --retry 3 --retry-all-errors -o bin/strauss.phar https://github.com/BrianHenryIE/strauss/releases/download/0.27.0/strauss.phar'",
         "test": [
             "@phpcs",
             "@phpstan"
         ],
         "zip": "bash bin/build-zip.sh",
         "prefix-namespaces": [
-            "sh -c 'test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.27.0/strauss.phar'",
+            "@install-strauss",
             "@php bin/strauss.phar",
-            "@composer dump-autoload"
+            "@composer dump-autoload --no-scripts",
+            "@php bin/strauss.phar include-autoloader"
         ],
         "post-install-cmd": [
             "@prefix-namespaces"
         ],
         "post-update-cmd": [
             "@prefix-namespaces"
-        ],
-        "post-autoload-dump": [
-            "sh -c 'test -f ./bin/strauss.phar || curl -o bin/strauss.phar -L -C - https://github.com/BrianHenryIE/strauss/releases/download/0.27.0/strauss.phar'",
-            "@php bin/strauss.phar include-autoloader"
         ]
     },
     "extra": {
